@@ -1,6 +1,9 @@
 @extends('layouts.master')
 
 @section('content')
+@php
+    $metadatos = unserialize($proyecto['metadatos']);
+@endphp
 
 <div class="row" style="margin-top:40px">
    <div class="offset-md-3 col-md-6">
@@ -33,7 +36,7 @@
 	            <div class="form-group">
 	               <label for="metadatos">Metadatos</label>
 	               <textarea name="metadatos" id="metadatos" class="form-control" rows="3">
-@foreach ($proyecto['metadatos'] as $clave => $metadato)
+@foreach ($metadatos as $clave => $metadato)
 {{ $clave }}: {{ $metadato }}
 @endforeach
                     </textarea>
