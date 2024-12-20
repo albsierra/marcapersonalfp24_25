@@ -19,18 +19,8 @@ class DatabaseSeeder extends Seeder
         Model::unguard();
         Schema::disableForeignKeyConstraints();
 
-        // User::factory(10)->create();
-        if(User::count() == 0) {
-            if(config('app.env') ==='local'){
-                User::factory(10)->create();
-                User::factory()->create([
-                'name' => 'Test User',
-                'email' => 'test@example.com',
-                ]);
-            }
-        }
-
         // llamadas a otros ficheros de seed
+        $this->call(UsersTableSeeder::class);
         $this->call(EstudiantesTableSeeder::class);
         self::seedProyectos();
         $this->command->info('Tabla proyectos inicializada con datos!');
