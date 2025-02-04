@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class FamiliaProfesional extends Model
 {
@@ -14,4 +15,16 @@ class FamiliaProfesional extends Model
         'nombre',
         'imagen'
     ];
+
+    public static $filterColumns = [
+        'id',
+        'codigo',
+        'nombre',
+        'imagen'
+    ];
+
+    public function ciclos() : HasMany
+    {
+        return $this->hasMany(Ciclo::class, 'familia_id');
+    }
 }
