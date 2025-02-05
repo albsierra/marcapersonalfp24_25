@@ -19,12 +19,12 @@ class ReactAdminResponse
     {
         if ($request->routeIs('*.index')) {
             $request->merge(['perPage' => 10]);
-            if ($request->filled('_start')) {
-                if ($request->filled('_end')) {
-                    $request->merge(['perPage' => 1 + $request->_end - $request->_start]);
-                }
-                $request->merge(['page' => intval($request->_start / $request->perPage) + 1]);
+            $paramStart = $request->_start ?? 1;
+            if ($request->filled('_end')) {
+                $request->merge(['perPage' => 1 + $request->_end - $paramStart]);
             }
+            $request->merge(['page' => intval($paramStart / $request->perPage) + 1]);
+
             $controller = $request->route()->getController();
             $modelClassName = $controller->modelclass;
             $query = self::applyFilter($request, $modelClassName::$filterColumns);
